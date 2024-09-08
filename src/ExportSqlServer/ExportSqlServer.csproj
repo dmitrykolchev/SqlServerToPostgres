@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<IncludeAllContentForSelfExtract>False</IncludeAllContentForSelfExtract>
+		<IncludeNativeLibrariesForSelfExtract>True</IncludeNativeLibrariesForSelfExtract>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DebugType>embedded</DebugType>
+		<DebugSymbols>true</DebugSymbols>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+		<None Remove="Data\female_names_rus.txt" />
+		<None Remove="Data\male_names_rus.txt" />
+		<None Remove="Data\male_surnames_rus.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Data\female_names_rus.txt" />
+	  <EmbeddedResource Include="Data\male_names_rus.txt" />
+	  <EmbeddedResource Include="Data\male_surnames_rus.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MessagePack" Version="2.5.172" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+	</ItemGroup>
+
+</Project>

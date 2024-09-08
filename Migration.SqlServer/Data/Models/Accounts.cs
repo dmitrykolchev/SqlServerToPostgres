@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Migration.SqlServer.Data.Models;
+
+public partial class Accounts
+{
+    public long Id { get; set; }
+
+    public string? Code { get; set; }
+
+    public double? Balance { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? UserAccessRole { get; set; }
+
+    public long? UserGroupId { get; set; }
+
+    public DateTime? ModificationDate { get; set; }
+
+    public string? AppInstanceId { get; set; }
+
+    public long? ObjectId { get; set; }
+
+    public string? CurrencyTypeId { get; set; }
+
+    public string? Name { get; set; }
+}

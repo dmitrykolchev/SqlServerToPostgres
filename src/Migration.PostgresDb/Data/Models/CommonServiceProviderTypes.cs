@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Migration.PostgresDb.Data.Models;
+
+public partial class CommonServiceProviderTypes
+{
+    public string Id { get; set; } = null!;
+
+    public string? Name { get; set; }
+
+    public bool? WithDate { get; set; }
+}
