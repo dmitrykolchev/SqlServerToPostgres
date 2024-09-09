@@ -56,3 +56,10 @@ appsettings.json
   ~/Publish/Finder/Finder
 ```
 ![image](https://github.com/user-attachments/assets/70932967-cae5-418f-938d-e9eedcfef2bb)
+
+### Build SqlServerToPostgres
+
+``` bash
+ dotnet publish SqlServerToPostgres.csproj -c Release -o ~/Publish/SqlServerToPostgres -r linux-x64 -p:PublishSingleFile=true --sc true
+```
+
