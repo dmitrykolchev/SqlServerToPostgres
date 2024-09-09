@@ -5,5 +5,5 @@ public class AnonymizerServiceOptions
 
     public string NamesXPath { get; set; } = null!;
 
-    public string? CleanupXPath { get; set; }
+    public string? MaskXPath { get; set; }
 }

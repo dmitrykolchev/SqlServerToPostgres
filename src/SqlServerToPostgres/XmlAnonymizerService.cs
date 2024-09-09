@@ -65,9 +65,9 @@ public class XmlAnonymizerService : IConverter
                 }
             }
         }
-        if (Options.CleanupXPath is not null)
+        if (Options.MaskXPath is not null)
         {
-            nodes = navigator.Select(Options.CleanupXPath);
+            nodes = navigator.Select(Options.MaskXPath);
             foreach (XPathNavigator node in nodes)
             {
                 if (node.MoveToChild(XPathNodeType.Text))
