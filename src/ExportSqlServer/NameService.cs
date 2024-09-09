@@ -1,8 +1,13 @@
-﻿using Finder.Data;
-using Microsoft.Extensions.Options;
+﻿// <copyright file="NameService.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using Finder.Data;
+using Microsoft.Extensions.Options;
 
 namespace Finder;
 

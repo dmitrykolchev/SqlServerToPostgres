@@ -1,8 +1,13 @@
-﻿namespace Finder;
+﻿// <copyright file="NameServiceData.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
+namespace Finder;
 
 public class NameServiceData
 {
-    private HashSet<int> _used = new ();
+    private readonly HashSet<int> _used = new();
 
     public List<FullNameEntry>? Entries { get; set; }
 

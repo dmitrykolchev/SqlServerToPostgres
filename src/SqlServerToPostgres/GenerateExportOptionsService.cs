@@ -1,16 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿// <copyright file="GenerateExportOptionsService.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Text.Unicode;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SqlServerToPostgres;
 
-public class GenerateExportOptionsService: IOperationsService
+public class GenerateExportOptionsService : IOperationsService
 {
     private InformationSchemaService? _sourceIss;
     private InformationSchemaService? _destinationIss;
-    private HashSet<string> _typeConverters = new();
+    private readonly HashSet<string> _typeConverters = new();
 
 
     public GenerateExportOptionsService(IServiceProvider serviceProvider)
@@ -20,10 +25,10 @@ public class GenerateExportOptionsService: IOperationsService
 
     private IServiceProvider ServiceProvider { get; }
 
-    private InformationSchemaService SourceIss => 
+    private InformationSchemaService SourceIss =>
         _sourceIss ??= ServiceProvider.GetRequiredKeyedService<InformationSchemaService>(Program.SourceKey);
 
-    private InformationSchemaService DestinationIss => 
+    private InformationSchemaService DestinationIss =>
         _destinationIss ??= ServiceProvider.GetRequiredKeyedService<InformationSchemaService>(Program.DestinationKey);
 
     public Task RunAsync()

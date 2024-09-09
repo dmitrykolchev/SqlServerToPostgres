@@ -1,7 +1,12 @@
-﻿using Microsoft.Extensions.Options;
+﻿// <copyright file="XmlAnonymizerService.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
 using System.Text.Json;
 using System.Xml;
 using System.Xml.XPath;
+using Microsoft.Extensions.Options;
 
 namespace SqlServerToPostgres;
 

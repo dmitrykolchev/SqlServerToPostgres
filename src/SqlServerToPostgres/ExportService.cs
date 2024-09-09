@@ -1,8 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-using Npgsql;
+﻿// <copyright file="ExportService.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
 using System.Data;
 using System.Data.Common;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Npgsql;
 
 namespace SqlServerToPostgres;
 
@@ -174,7 +179,7 @@ public class ExportService : IOperationsService
                 }
                 else if (column.Action == ColumnAction.TypeConvert)
                 {
-                    switch(column.Parameter)
+                    switch (column.Parameter)
                     {
                         case "FromBoolToSmallInt":
                             columnMappting.Action = DefaultTypeConverter.FromBoolToSmallInt;

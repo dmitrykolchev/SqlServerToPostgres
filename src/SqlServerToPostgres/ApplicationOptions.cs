@@ -1,4 +1,9 @@
-﻿using System.Text.Json.Serialization;
+﻿// <copyright file="ApplicationOptions.cs" company="Division By Zero">
+// Copyright (c) 2024 Dmitry Kolchev. All rights reserved.
+// See LICENSE in the project root for license information
+// </copyright>
+
+using System.Text.Json.Serialization;
 
 namespace SqlServerToPostgres;
 
@@ -11,7 +16,7 @@ public enum OperationsType
 public class ApplicationOptions
 {
     public OperationsType OperationsType { get; set; }
-    
+
     public ProviderType DestinationProviderType { get; set; } = ProviderType.Postgres;
     public string? DestinationConnectionString { get; set; }
 
