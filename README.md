@@ -50,7 +50,7 @@ appsettings.json
   ]
 }
 ```
-### Run finder
+### Run Finder
 Открыть терминал и выполнить команду
 ```
   ~/Publish/Finder/Finder
