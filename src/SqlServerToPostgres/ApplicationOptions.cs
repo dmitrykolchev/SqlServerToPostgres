@@ -11,6 +11,7 @@ public enum OperationsType
 public class ApplicationOptions
 {
     public OperationsType OperationsType { get; set; }
+    
     public ProviderType DestinationProviderType { get; set; } = ProviderType.Postgres;
     public string? DestinationConnectionString { get; set; }
 
@@ -40,7 +41,9 @@ public class TableExportOptions
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? SourceQuery { get; set; }
-
+    /// <summary>
+    /// Fields used for the query ordering (offset and fetch)
+    /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string[]? SourceQueryKey { get; set; }
 

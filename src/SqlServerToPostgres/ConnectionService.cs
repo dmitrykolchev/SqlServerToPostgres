@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System.Data.Common;
 
 namespace SqlServerToPostgres;
@@ -17,9 +16,9 @@ public class ConnectionService
             Provider = ProviderManager.GetProvider(ApplicationOptions.SourceProviderType);
             ProviderType = ApplicationOptions.SourceProviderType;
         }
-        else if(key == Program.DestinationKey) 
+        else if (key == Program.DestinationKey)
         {
-            ConnectionString = ApplicationOptions.DestinationConnectionString ?? 
+            ConnectionString = ApplicationOptions.DestinationConnectionString ??
                 throw new InvalidOperationException("configuration DestinationConnectionString");
             Provider = ProviderManager.GetProvider(ApplicationOptions.DestinationProviderType);
             ProviderType = ApplicationOptions.DestinationProviderType;

@@ -61,29 +61,27 @@ public class GenerateExportOptionsService: IOperationsService
         {
             ColumnExportOptions column = new();
             columns.Add(column);
-            var destination = destinationColumns[index];
+            ColumnInfo destination = destinationColumns[index];
             column.Destination = destination.Name;
-            var source = sourceColumns.Where(t => t.Name == destination.Name).FirstOrDefault();
-            if (source is not null)
+            ColumnInfo? sourceColumn = sourceColumns.Where(t => t.Name == destination.Name).FirstOrDefault();
+            if (sourceColumn is not null)
             {
-                sourceColumns.Remove(source);
-                column.Source = source.Name;
-                if (string.Equals(source.DataType, "XML", StringComparison.OrdinalIgnoreCase))
+                sourceColumns.Remove(sourceColumn);
+                column.Source = sourceColumn.Name;
+                if (sourceColumn.DataType == DataType.Xml)
                 {
                     column.Action = ColumnAction.Convert;
                     column.Parameter = typeof(XmlAnonymizerService).AssemblyQualifiedName;
                 }
-                else if (source.Name.EndsWith("fullname", StringComparison.CurrentCultureIgnoreCase) &&
-                    (source.DataType == "varchar" || source.DataType == "nvarchar" ||
-                     source.DataType == "text" || source.DataType == "ntext"))
+                else if (sourceColumn.Name.EndsWith("fullname", StringComparison.CurrentCultureIgnoreCase) &&
+                    (sourceColumn.DataType == DataType.VarChar || sourceColumn.DataType == DataType.Text))
                 {
                     column.Action = ColumnAction.Convert;
                     column.Parameter = typeof(TextAnonymizerService).AssemblyQualifiedName;
                 }
-                else if ((source.Name.EndsWith("login", StringComparison.CurrentCultureIgnoreCase) ||
-                    source.Name.EndsWith("email", StringComparison.CurrentCultureIgnoreCase)) &&
-                    (source.DataType == "varchar" || source.DataType == "nvarchar" ||
-                     source.DataType == "text" || source.DataType == "ntext"))
+                else if ((sourceColumn.Name.EndsWith("login", StringComparison.CurrentCultureIgnoreCase) ||
+                    sourceColumn.Name.EndsWith("email", StringComparison.CurrentCultureIgnoreCase)) &&
+                    (sourceColumn.DataType == DataType.VarChar || sourceColumn.DataType == DataType.Text))
                 {
                     column.Action = ColumnAction.MaskWithChar;
                     column.Parameter = "*";

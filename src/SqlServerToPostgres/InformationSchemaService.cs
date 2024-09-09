@@ -9,7 +9,10 @@ public class InformationSchemaService
     private Dictionary<string, List<ColumnInfo>>? _allKeys;
     private Dictionary<string, List<ColumnInfo>>? _allColumns;
 
-    public InformationSchemaService(IOptions<ApplicationOptions> options, IServiceProvider serviceProvider, object key)
+    public InformationSchemaService(
+        IOptions<ApplicationOptions> options,
+        IServiceProvider serviceProvider,
+        object key)
     {
         ApplicationOptions = options.Value;
         ConnectionService = serviceProvider.GetRequiredKeyedService<ConnectionService>(key);
@@ -18,6 +21,22 @@ public class InformationSchemaService
     private ApplicationOptions ApplicationOptions { get; }
 
     private ConnectionService ConnectionService { get; }
+
+    public ProviderType ProviderType => ConnectionService.ProviderType;
+
+    public DataType GetColumnDataType(string dataType, int? maxLength)
+    {
+        switch (ProviderType)
+        {
+            case ProviderType.SqlServer:
+                return DataTypeConverter.GetSqlColumnDataType(dataType, maxLength);
+            case ProviderType.Npgsql:
+            case ProviderType.Postgres:
+                return DataTypeConverter.GetPostgresColumnDataType(dataType, maxLength);
+            default:
+                throw new InvalidOperationException($"Unsupported provider type {ProviderType}.");
+        }
+    }
 
     private static readonly string GetTablesSql = @"SELECT 
     TABLE_NAME 
@@ -78,12 +97,15 @@ order by
             List<ColumnInfo> result = new();
             while (reader.Read())
             {
+                string nativeDataType = reader.GetString(2);
+                int? characterMaximumLength = reader.IsDBNull(3) ? null : reader.GetInt32(3);
                 ColumnInfo columnInfo = new()
                 {
                     Name = reader.GetString(0),
                     IsNullable = reader.GetString(1) == "YES" ? true : false,
-                    DataType = reader.GetString(2),
-                    CharacterMaximumLength = reader.IsDBNull(3) ? null : reader.GetInt32(3),
+                    DataType = GetColumnDataType(nativeDataType, characterMaximumLength),
+                    NativeDataType = nativeDataType,
+                    CharacterMaximumLength = characterMaximumLength,
                     NumericPrecision = reader.IsDBNull(4) ? null : reader.GetByte(4),
                     NumericScale = reader.IsDBNull(5) ? null : reader.GetInt32(5),
                     TableSchema = reader.GetString(6),

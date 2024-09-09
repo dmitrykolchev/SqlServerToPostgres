@@ -1,4 +1,6 @@
-﻿namespace SqlServerToPostgres;
+﻿using Npgsql.Internal.Postgres;
+
+namespace SqlServerToPostgres;
 
 public class ColumnInfo
 {
@@ -6,7 +8,9 @@ public class ColumnInfo
 
     public bool IsNullable { get; set; }
 
-    public string DataType { get; set; } = null!;
+    public DataType DataType { get; set; }
+
+    public string? NativeDataType { get; set; }
 
     public int? CharacterMaximumLength { get; set; }
 
@@ -22,7 +26,7 @@ public class ColumnInfo
 
     public override string ToString()
     {
-        if (DataType == null)
+        if (NativeDataType == null)
         {
             return Name;
         }
