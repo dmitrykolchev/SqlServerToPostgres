@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Pg = Migration.PostgresDb.Data.Models;
-using Sql = Migration.SqlServer.Data.Models;
 
 namespace SqlServerToPostgres;
 
@@ -57,21 +54,21 @@ internal class Program
         ServiceCollection services = new();
         services.Configure<ApplicationOptions>(Configuration);
 
-        services.AddDbContextPool<Sql.MigrationSqlDbContext>(
-            (sp, options) =>
-            {
-                var o = sp.GetRequiredService<IOptions<ApplicationOptions>>();
-                options.UseSqlServer(o.Value.SourceConnectionString);
-            }
-        );
+        //services.AddDbContextPool<Sql.MigrationSqlDbContext>(
+        //    (sp, options) =>
+        //    {
+        //        var o = sp.GetRequiredService<IOptions<ApplicationOptions>>();
+        //        options.UseSqlServer(o.Value.SourceConnectionString);
+        //    }
+        //);
 
-        services.AddDbContextPool<Pg.MigrationPostresDbContext>(
-            (sp, options) =>
-            {
-                var o = sp.GetRequiredService<IOptions<ApplicationOptions>>();
-                options.UseNpgsql(o.Value.DestinationConnectionString);
-            }
-        );
+        //services.AddDbContextPool<Pg.MigrationPostresDbContext>(
+        //    (sp, options) =>
+        //    {
+        //        var o = sp.GetRequiredService<IOptions<ApplicationOptions>>();
+        //        options.UseNpgsql(o.Value.DestinationConnectionString);
+        //    }
+        //);
 
         services.AddSingleton<XmlAnonymizerService>();
         services.AddSingleton<TextAnonymizerService>();
