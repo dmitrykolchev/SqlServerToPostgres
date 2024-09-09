@@ -3,6 +3,7 @@
 public enum DataType
 {
     Bool,
+    TinyInt,
     SmallInt,
     Int,
     BigInt,
@@ -17,6 +18,7 @@ public enum DataType
     Text,
     DoublePrecision,
     ByteArray,
+    Array,
     Xml
 }
 
@@ -28,6 +30,8 @@ public class DataTypeConverter
         {
             case DataType.BigInt:
                 return typeof(long);
+            case DataType.TinyInt:
+                return typeof(byte);
             case DataType.Bool:
                 return typeof(bool);
             case DataType.Date:
@@ -84,6 +88,8 @@ public class DataTypeConverter
                 return DataType.Int;
             case "smallint":
                 return DataType.SmallInt;
+            case "tinyint":
+                return DataType.TinyInt;
             case "uniqueidentifier":
                 return DataType.Uuid;
             case "nvarchar":
@@ -101,8 +107,6 @@ public class DataTypeConverter
                 return DataType.ByteArray;
             case "timestamp":
                 return DataType.ByteArray;
-            case "tinyint":
-                return DataType.SmallInt;
             case "xml":
                 return DataType.Xml;
             case "text":
@@ -134,6 +138,7 @@ public class DataTypeConverter
                 return DataType.SmallInt;
             case "text":
                 return DataType.Text;
+            case "timestamp with time zone":
             case "timestamp without time zone":
                 return DataType.DateTime;
             case "time without time zone":
@@ -146,6 +151,8 @@ public class DataTypeConverter
                 return DataType.ByteArray;
             case "xml":
                 return DataType.Xml;
+            case "array":
+                return DataType.Array;
             default:
                 throw new InvalidOperationException($"unsupported data type: {dataType}");
         }

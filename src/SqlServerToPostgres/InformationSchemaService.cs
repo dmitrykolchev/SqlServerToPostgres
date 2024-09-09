@@ -80,6 +80,8 @@ ORDER BY
     ORDINAL_POSITION
 from 
     INFORMATION_SCHEMA.COLUMNS 
+where 
+    TABLE_SCHEMA not in ('information_schema', 'pg_catalog')
 order by 
     TABLE_SCHEMA, TABLE_NAME, ORDINAL_POSITION";
 

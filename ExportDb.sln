@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExportSqlServer", "src\ExportSqlServer\ExportSqlServer.csproj", "{1F25F9E1-F942-4566-A978-9FDB38B8435D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finder", "src\ExportSqlServer\Finder.csproj", "{1F25F9E1-F942-4566-A978-9FDB38B8435D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlServerToPostgres", "src\SqlServerToPostgres\SqlServerToPostgres.csproj", "{D01BE307-42BB-42BC-991D-46B27930EB4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.PostgresDb", "src\Migration.PostgresDb\Migration.PostgresDb.csproj", "{D5745A9E-9D18-49BD-8C60-B1D336234BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.PostgresDb", "src\Migration.PostgresDb\Migration.PostgresDb.csproj", "{D5745A9E-9D18-49BD-8C60-B1D336234BD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migration.SqlServer", "Migration.SqlServer\Migration.SqlServer.csproj", "{47D1C620-F92B-42D5-B6C8-2921F2390AF6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Migration.SqlServer", "Migration.SqlServer\Migration.SqlServer.csproj", "{47D1C620-F92B-42D5-B6C8-2921F2390AF6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

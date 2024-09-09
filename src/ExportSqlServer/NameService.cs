@@ -1,10 +1,10 @@
-﻿using ExportSqlServer.Data;
+﻿using Finder.Data;
 using Microsoft.Extensions.Options;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 
-namespace ExportSqlServer;
+namespace Finder;
 
 public class NameService
 {

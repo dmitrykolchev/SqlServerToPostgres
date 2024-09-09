@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ExportSqlServer;
+namespace Finder;
 
 internal class NameParser
 {

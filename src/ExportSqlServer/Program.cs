@@ -2,7 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace ExportSqlServer;
+namespace Finder;
 
 internal class Program
 {
@@ -19,19 +19,6 @@ internal class Program
         verificationService.VerifyConfiguration();
         NameService nameService = ServiceProvider.GetRequiredService<NameService>();
         nameService.ParseAndSave();
-
-        //List<string> fields = ["A", "B", "C"];
-        //List<object> values = [DateTime.Now, null, 100];
-        //List<object> values1 = [DateTime.Now, "Data", 101];
-
-        //using MemoryStream memory = new();
-        //MessagePackSerializer.Serialize(memory, fields);
-        //MessagePackSerializer.Serialize(memory, values);
-        //MessagePackSerializer.Serialize(memory, values1);
-        //memory.Position = 0;
-        //List<string>? f = (List<string>?)MessagePackSerializer.Deserialize(typeof(List<string>), memory);
-        //List<object>? v = (List<object>?)MessagePackSerializer.Deserialize(typeof(List<object>), memory);
-        //List<object>? v1 = (List<object>?)MessagePackSerializer.Deserialize(typeof(List<object>), memory);
     }
 
     private static void Configure(string[] args)

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace ExportSqlServer;
+namespace Finder;
 public class InformationSchema
 {
     private static readonly string GetPrimaryKeysSql = @"

@@ -10,6 +10,8 @@ public class GenerateExportOptionsService: IOperationsService
 {
     private InformationSchemaService? _sourceIss;
     private InformationSchemaService? _destinationIss;
+    private HashSet<string> _typeConverters = new();
+
 
     public GenerateExportOptionsService(IServiceProvider serviceProvider)
     {
@@ -85,6 +87,13 @@ public class GenerateExportOptionsService: IOperationsService
                 {
                     column.Action = ColumnAction.MaskWithChar;
                     column.Parameter = "*";
+                }
+                else if (DataTypeConverter.GetClrType(sourceColumn.DataType) != DataTypeConverter.GetClrType(destination.DataType))
+                {
+                    column.Action = ColumnAction.TypeConvert;
+                    string converter = $"From{sourceColumn.DataType}To{destination.DataType}";
+                    _typeConverters.Add(converter);
+                    column.Parameter = converter;
                 }
                 else
                 {

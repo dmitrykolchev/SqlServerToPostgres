@@ -1,4 +1,4 @@
-﻿namespace ExportSqlServer.Data;
+﻿namespace Finder.Data;
 
 /// <summary>
 /// R

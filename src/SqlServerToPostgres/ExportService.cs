@@ -86,7 +86,6 @@ public class ExportService : IOperationsService
             destination.BeginLoadData();
             while (reader.Read())
             {
-                Console.Write($"{++totalCount,8}: ");
                 DataRow row = destination.NewRow();
                 for (int column = 0; column < mappings.Count; ++column)
                 {
@@ -105,14 +104,14 @@ public class ExportService : IOperationsService
                     {
                         row[mapping.DestinationIndex] = result;
                     }
-                    Console.Write($"{result?.ToString()?.Truncate(64)}, ");
                 }
                 destination.Rows.Add(row);
-                Console.WriteLine();
                 recordCount++;
+                totalCount++;
             }
             destination.EndLoadData();
             await BulkCopyAsync(export, mappings, destination);
+            Console.WriteLine($"Exported records: {totalCount}");
             destination.Rows.Clear();
             if (recordCount < export.BatchSize)
             {
@@ -173,6 +172,35 @@ public class ExportService : IOperationsService
                 {
                     columnMappting.Converter = (IConverter)ServiceProvider.GetRequiredService(Type.GetType(column.Parameter!, true)!);
                 }
+                else if (column.Action == ColumnAction.TypeConvert)
+                {
+                    switch(column.Parameter)
+                    {
+                        case "FromBoolToSmallInt":
+                            columnMappting.Action = DefaultTypeConverter.FromBoolToSmallInt;
+                            break;
+                        case "FromByteArrayToDateTime":
+                            columnMappting.Action = DefaultTypeConverter.FromByteArrayToDateTime;
+                            break;
+                        case "FromTinyIntToInt":
+                            columnMappting.Action = DefaultTypeConverter.FromTinyIntToInt;
+                            break;
+                        case "FromTextToBigInt":
+                            columnMappting.Action = DefaultTypeConverter.FromTextToBigInt;
+                            break;
+                        case "FromByteArrayToVarChar":
+                            throw new InvalidOperationException("unsupported convertion");
+                        case "FromBigIntToDoublePrecision":
+                            columnMappting.Action = DefaultTypeConverter.FromBigIntToDoublePrecision;
+                            break;
+
+
+
+                        default:
+                            throw new InvalidOperationException("unsupprted type converter");
+                    }
+
+                }
                 mappings.Add(columnMappting);
             }
         }
@@ -224,7 +252,6 @@ public class ExportService : IOperationsService
         return table;
     }
 
-
     private static object? Convert(ExportColumnMapping mapping, object value)
     {
         if (value is DBNull)
@@ -257,6 +284,55 @@ public class ExportService : IOperationsService
         string text = (string)value;
         return new string('*', text.Length);
     }
+
+    private static class DefaultTypeConverter
+    {
+        public static object? FromTextToBigInt(ExportColumnMapping mapping, object value)
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+            throw new InvalidCastException("unsupported convertion");
+        }
+
+        public static object? FromBigIntToDoublePrecision(ExportColumnMapping mapping, object value)
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+            return (double)(long)value;
+        }
+
+        public static object? FromTinyIntToInt(ExportColumnMapping mapping, object value)
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+            return (int)(byte)value;
+        }
+
+        public static object? FromBoolToSmallInt(ExportColumnMapping mapping, object value)
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+            return (bool)value ? (short)1 : (short)0;
+        }
+
+        public static object? FromByteArrayToDateTime(ExportColumnMapping mapping, object value)
+        {
+            if (value is DBNull)
+            {
+                return null;
+            }
+            return DateTime.UtcNow;
+        }
+    }
+
 
     private class ExportColumnMapping
     {

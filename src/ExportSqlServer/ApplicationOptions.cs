@@ -1,4 +1,4 @@
-﻿namespace ExportSqlServer;
+﻿namespace Finder;
 
 public class TableFieldPair
 {

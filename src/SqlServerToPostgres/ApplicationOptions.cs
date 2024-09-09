@@ -72,6 +72,7 @@ public enum ColumnAction
     Skip,
     Copy,
     Convert,
+    TypeConvert,
     SetNull,
     SetValue,
     MaskWithChar,

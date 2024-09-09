@@ -1,7 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 
-namespace ExportSqlServer;
+namespace Finder;
 public class VerificationService
 {
     private readonly ApplicationOptions _options;
